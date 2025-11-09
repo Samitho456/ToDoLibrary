@@ -26,6 +26,20 @@ namespace ToDoLibrary
             return _context.Tasks.ToList();
         }
 
+        public IEnumerable<Task> GetAllSorted(string sortBy, bool decending = false)
+        {
+            var query = _context.Tasks.AsQueryable();
+
+            return sortBy.ToLower() switch
+            {
+                "title" => decending ? query.OrderByDescending(t => t.Title) : query.OrderBy(t => t.Title),
+                "created" => decending ? query.OrderByDescending(t => t.CreatedAt) : query.OrderBy(t => t.CreatedAt),
+                "duedate" => decending ? query.OrderByDescending(t => t.DueDate) : query.OrderBy(t => t.DueDate),
+                "iscompleted" => decending ? query.OrderByDescending(t => t.IsCompleted) : query.OrderBy(t => t.IsCompleted),
+                _ => decending ? query.OrderByDescending(t => t.Id) : query.OrderBy(t => t.Id),
+            };
+        }
+
         public Task GetById(int id)
         {
             return _context.Tasks.FirstOrDefault(t => t.Id == id);

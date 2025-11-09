@@ -35,6 +35,14 @@ namespace ToDoRestAPI.Controllers
             return Ok(task);
         }
 
+        [ProducesResponseType<List<ToDoLibrary.Task>>(StatusCodes.Status200OK)]
+        [HttpGet("sorted")]
+        public IActionResult GetAllSorted([FromQuery]string sortBy, [FromQuery] bool decending = false)
+        {
+            //var sortedTasks = _taskRepo.GetAllSorted(sortBy, decending);
+            return Ok(_taskRepo.GetAllSorted(sortBy, decending));
+        }
+
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status406NotAcceptable)]
         [HttpPost]

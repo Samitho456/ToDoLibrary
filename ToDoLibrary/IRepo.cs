@@ -10,6 +10,7 @@ namespace ToDoLibrary
     {
         void Add(T obj);
         IEnumerable<T> GetAll();
+        IEnumerable<T> GetAllSorted(string sortBy, bool decending = false);
         T GetById(int id);
         T Remove(int id);
         T GetByTitle(string title);
